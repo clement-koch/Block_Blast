@@ -1,43 +1,46 @@
 import pygame 
-from affichage import Grille
+from affichage import *
 
 # Initialisation de Pygame
 pygame.init()
 
-# Définir les dimensions de la fenêtre
 LARGEUR = 650
 HAUTEUR = 950
 
-# Créer la fenêtre
 fenetre = pygame.display.set_mode((LARGEUR, HAUTEUR))
-aff=Grille(fenetre,8,8)
-# Titre de la fenêtre
-pygame.display.set_caption("Ma fenêtre Pygame")
+aff=Grille(fenetre)
+att=En_Attente(fenetre)
+piec=Pieces(x,y)
+pygame.display.set_caption("blok blast")
 
-# Couleurs (RGB)
+
 BLANC = (255, 255, 255)
 NOIR = (0, 0, 0)
 BLEU = (0,0,240)
 
-# Boucle principale
+
 running = True
 clock = pygame.time.Clock()
 
 while running:
-    # Gérer les événements
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        elif event.type == pygame.MOUSEBUTTONUP:
+            if event.button==1:
+                x = event.pos[0]
+                y = event.pos[1]
+                piec.x = (x-50)//70
+                piec.y = (y-150)//70
+                piec.ajout()
+                
     
     
-    # Remplir l'écran avec une couleur
     fenetre.fill(BLEU)
+    pygame.draw.rect(fenetre,(0,0,150),(40,140,570,570))
     aff.dessiner()
-    # Mettre à jour l'affichage
+    att.afficher()
     pygame.display.flip()
-    
-    # Limiter à 60 FPS
     clock.tick(60)
 
-# Quitter proprement
 pygame.quit()
