@@ -175,5 +175,3 @@ class Pieces:
                     if self.can_place(grille, gx, gy, piece):
                         return True
         return False
-
-        
